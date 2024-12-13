@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maker pizza order</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/order.css">
+
+  <!-- Font Awesome (최신 버전 하나만 사용) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap CSS (최신 버전 하나만 사용) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Slick Carousel CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Slick Carousel JS -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav_bar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="logo">
+                </a>
+            </div>
+            <ul class="nav_menu">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Locations/Hour</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="right_bar">
+                <div><a href="#">Order</a></div>
+            </nav>
+        <button class="hamburger">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-menu hidden">
+                <ul>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Menu</a></li>
+                  <li><a href="#">Locations / Hour</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="#" class="order-button">Order</a>
+            </div>
+        </button> 
+    </header>
+    <main>
+        <div class="carousel">
+            <div><img src="../images/banner1.png" alt="Pizza 1" class="pizza banner1"></div>
+            <div><img src="../images/banner2.png" alt="Pizza 2" class="pizza banner2"></div>
+          </div>
+        <div class="container mt-5">
+            <h1 class="order-header">Place Your Order</h1>
+        
+            <form id="orderForm">
+              <!-- Customer Information -->
+              <div class="mb-3">
+                <label for="customerName" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="customerName" placeholder="Enter your name" required>
+              </div>
+        
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
+              </div>
+        
+              <div class="mb-3">
+                <label for="address" class="form-label">Delivery Address</label>
+                <textarea class="form-control" id="address" rows="3" placeholder="Enter your delivery address" required></textarea>
+              </div>
+        
+              <!-- Pizza Selection -->
+              <h4>Select Your Pizza</h4>
+              <div class="mb-3">
+                <select id="pizzaSelection" class="form-select">
+                  <option value="You Feta" data-price="15">You Feta ($15)</option>
+                  <option value="TAVERN You" data-price="18">TAVERN You ($18)</option>
+                  <option value="Return of the Olive" data-price="20">Return of the Olive ($20)</option>
+                </select>
+              </div>
+        
+              <!-- Toppings -->
+              <h4>Add Toppings</h4>
+              <div class="form-check">
+                <input class="form-check-input topping" type="checkbox" value="2" id="cheese">
+                <label class="form-check-label" for="cheese">Extra Cheese ($2)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input topping" type="checkbox" value="3" id="pepperoni">
+                <label class="form-check-label" for="pepperoni">Pepperoni ($3)</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input topping" type="checkbox" value="1.5" id="mushrooms">
+                <label class="form-check-label" for="mushrooms">Mushrooms ($1.5)</label>
+              </div>
+        
+              <!-- Quantity -->
+              <div class="mb-3 mt-4">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="1" required>
+              </div>
+        
+              <!-- Order Summary -->
+              <h4>Order Summary</h4>
+              <p class="total-price">Total: $<span id="totalPrice">15</span></p>
+        
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary w-100">Place Order</button>
+            </form>
+          </div>
+          <section class="location">
+            <div class="location-grid">
+              <!-- Map Section -->
+              <div class="map">
+                <div id="map" style="width: 100%; height: 400px;"></div>
+              </div>
+          
+              <!-- Information Section -->
+              <div class="open">
+                <h2>OPEN HOUR</h2>
+                <p>MON-SUN</p>
+                <p>11:30 AM–9:00 PM</p>
+                <hr>
+              </div>
+            <div class="contact">
+                <h2>CONTACT</h2>
+                <p><strong>P</strong> 416-782-2000</p>
+                <p><strong>A</strong> 1141 Dufferin Street, Toronto, M6H 4B7</p>
+            </div>
+            <!-- Location Section -->
+            <div class="branches">
+                <div class="branch">
+                    <p>MAKER PIZZA CAMERON</p>
+                    <button class="view-btn">VIEW</button>
+                </div>
+                <div class="branch">
+                    <p>MAKER PIZZA CARLAW</p>
+                    <button class="view-btn">VIEW</button>
+                </div>
+                <div class="branch">
+                    <p>MAKER PIZZA BLOOR</p>
+                    <button class="view-btn">VIEW</button>
+                </div>
+                <div class="branch">
+                    <p>MAKER PIZZA AVENUE</p>
+                    <button class="view-btn">VIEW</button>
+                </div>
+            </div>
+            </section>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../images/logo.png" alt="Logo">
+        </div>
+        <nav class="footer-menu">
+            <ul>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">PRESS</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li><a href="#">PRIVACY POLICY</a></li>
+            </ul>
+        </nav>
+        <div class="footer-icons">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        </div>
+    </footer>
+    <script src="../js/order.js"></script>
+
+</body>
+</html>
